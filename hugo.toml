@@ -1,0 +1,7 @@
+baseURL = "https://srikanthlogic.github.io/companies/"
+languageCode = "en"
+title = "Company Docs"
+disableKinds = ["rss", "sitemap", "taxonomy", "term"]
+[params]
+  author = "Cashless Consumer"
+  source_url = "https://github.com/srikanthlogic/companies"

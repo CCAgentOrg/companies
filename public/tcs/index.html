@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tata Consultancy Services · Company Docs</title>
+  <meta name="description" content="A deep, multi-perspective documentary on India&#39;s largest IT services company — financials, governance, market position, and the bull &amp; bear cases.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://srikanthlogic.github.io/companies/css/main.min.c2e9a44e9c9168552dc12cf359082a2c4e6bf3666317a17824cc38e9b94814f6.css">
+  <script src="https://d3js.org/d3.v7.min.js" defer></script>
+  <script src="https://srikanthlogic.github.io/companies/js/main.js" defer></script>
+</head>
+<body>
+  
+
+
+
+
+
+
+<header class="pulse-bar" role="banner">
+  <div class="container pulse-bar-inner">
+    <div class="pulse-dot bull" aria-hidden="true"></div>
+    <div class="pulse-info">
+      <span class="ticker">TCS.NS</span>
+      <span class="label">Cautiously Bullish</span>
+      <span class="score">68/100</span>
+    </div>
+    <nav class="perspective-group" role="tablist" aria-label="Analysis perspective">
+      <button class="chip active" data-perspective="bull" role="tab" aria-selected="true">🐂 Bull</button>
+      <button class="chip" data-perspective="bear" role="tab">🐻 Bear</button>
+      <button class="chip" data-perspective="neutral" role="tab">⏸️ Neutral</button>
+      <button class="chip" data-perspective="data-only" role="tab">📊 Data</button>
+    </nav>
+  </div>
+</header>
+
+
+<section class="hero container content">
+  <h1 class="h1">Tata Consultancy Services</h1>
+  <div class="meta">
+    <span>🏷️ TCS.NS</span>
+    <span>🏭 Information Technology</span>
+    <span>📅 Founded 1968</span>
+    <span>👥 616,171 employees</span>
+    <span>💰 ₹14,85,000 Cr</span>
+  </div>
+  <p>A deep, multi-perspective documentary on India&#39;s largest IT services company — financials, governance, market position, and the bull &amp; bear cases.</p>
+</section>
+
+
+<section class="section container content">
+  <div class="data-grid" data-perspective-visible>
+    <div class="data-card fade-in visible delay-1">
+      <div class="label">Revenue (TTM)</div>
+      <div class="value">₹2.57L Cr</div>
+      <div class="delta up">▲ +6.7% YoY</div>
+    </div>
+    <div class="data-card fade-in visible delay-2">
+      <div class="label">Net Profit Margin</div>
+      <div class="value">20.6%</div>
+      <div class="delta up">▲ +10bps YoY</div>
+    </div>
+    <div class="data-card fade-in visible delay-3">
+      <div class="label">Debt / Equity</div>
+      <div class="value">0.02</div>
+      <div class="delta up">Near-zero debt</div>
+    </div>
+    <div class="data-card fade-in visible delay-4">
+      <div class="label">Return on Equity</div>
+      <div class="value">49.5%</div>
+      <div class="delta up">▲ World-class</div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section container" id="revenue-scrolly">
+  <div class="content section-header">
+    <h2 class="h2">Revenue <span style="color:var(--text2)">— Five Year Trajectory</span></h2>
+    <p class="small" style="margin-top:0.5rem">Scroll through to see how TCS grew revenue from ₹1.6L Cr to ₹2.6L Cr.</p>
+  </div>
+  <div class="scrolly" data-chart-type="revenue">
+    <div class="scrolly-step">
+      <div class="step-card" data-step="0">
+        <div class="title">1. Pre-pandemic base</div>
+        <div class="sub">FY21 · ₹1,64,177 Cr</div>
+        <div class="note">TCS entered the pandemic year with a strong order book built on legacy modernisation. Revenue dipped briefly then recovered faster than peers.</div>
+      </div>
+      <div class="step-card" data-step="1">
+        <div class="title">2. Cloud & digital surge</div>
+        <div class="sub">FY22 · ₹1,91,754 Cr</div>
+        <div class="note">Massive Cloud migration wave post-pandemic. TCS signed 3 deals worth $1B+ each in H1 alone. Revenue grew 17% — the fastest in a decade.</div>
+      </div>
+      <div class="step-card" data-step="2">
+        <div class="title">3. Peak growth</div>
+        <div class="sub">FY23 · ₹2,25,458 Cr</div>
+        <div class="note">Inflation hedge demand. Enterprises locked in multi-year outsourcing contracts to control costs. TCS added 100K+ employees.</div>
+      </div>
+      <div class="step-card" data-step="3">
+        <div class="title">4. Normalisation</div>
+        <div class="sub">FY24 · ₹2,40,893 Cr</div>
+        <div class="note">Growth slowed to 6.8% as clients paused discretionary spending. Deal pipeline remained strong but deal-to-revenue conversion lengthened.</div>
+      </div>
+      <div class="step-card" data-step="4">
+        <div class="title">5. AI uncertainty</div>
+        <div class="sub">FY25E · ₹2,57,000 Cr</div>
+        <div class="note">GenAI is the wild card. TCS has 100K+ employees being reskilled. Revenue visibility is solid but margin pressure from AI investments looms.</div>
+      </div>
+    </div>
+    <div class="scrolly-chart">
+      <div class="chart-fixed" id="revenue-chart"></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section container content annotation" id="profitability">
+  <div class="section-header">
+    <h2 class="h2">Profitability <span style="color:var(--text2)">— Margin of Excellence</span></h2>
+  </div>
+  <div class="aside">
+    TCS's PAT margin of ~20.5% is the highest among Indian IT majors. Infosys runs at ~17%, Wipro at ~12%. The gap comes from pyramid structure — TCS has the lowest fresher-to-senior ratio, driving lower employee cost per dollar billed.
+    <span class="source">Source: <a href="#" target="_blank" rel="noopener">Company annual reports</a></span>
+  </div>
+  <div id="profit-chart" style="height:350px;margin:2rem 0"></div>
+
+  
+  <div class="perspective-panel bull" data-perspective-content="bull">
+    <h4>🐂 Bull Case</h4>
+    <p>TCS has maintained margins above 20% for 7 consecutive quarters — a feat no peer has matched. Its investment in AI/ML is margin-accretive because it charges premium rates for AI consulting while delivering automation savings back to clients. The pyramid structure means margin expansion is structural, not cyclical.</p>
+  </div>
+  <div class="perspective-panel bear" data-perspective-content="bear">
+    <h4>🐻 Bear Case</h4>
+    <p>Margin peaked in FY23 at 20.5% and has been flat since. AI reskilling costs ($1B committed) will compress margins by 150-200bps over FY25-27. Salary revisions in a tightening talent market could add further pressure. The gap to Infosys is narrowing.</p>
+  </div>
+</section>
+
+
+<section class="section container content" id="ratios">
+  <div class="section-header">
+    <h2 class="h2">Efficiency Ratios</h2>
+  </div>
+  <div id="ratios-chart" style="height:300px;margin:2rem 0"></div>
+</section>
+
+
+<section class="section container content annotation" id="ownership">
+  <div class="section-header">
+    <h2 class="h2">Ownership <span style="color:var(--text2)">— Who Holds the Strings</span></h2>
+  </div>
+  <div class="aside">
+    Tata Sons holds 72.4% — an unusually high share for a company of TCS's size. The 5% float is among the lowest for Nifty 50 stocks. Promoter dominance is a double-edged sword: stability vs. minority governance concerns.
+    <span class="source">Source: <a href="#" target="_blank" rel="noopener">BSE shareholding pattern, Mar 2026</a></span>
+  </div>
+  <div id="ownership-chart" style="height:300px;margin:2rem 0"></div>
+  <div class="perspective-panel bull" data-perspective-content="bull">
+    <h4>🐂 Bull Case</h4>
+    <p>Promoter holding ensures management focus on long-term value, not quarterly earnings. No hostile takeover risk. Tata Sons' reputation acts as a governance backstop — they won't risk regulatory scrutiny on their crown jewel.</p>
+  </div>
+  <div class="perspective-panel bear" data-perspective-content="bear">
+    <h4>🐻 Bear Case</h4>
+    <p>72% promoter holding means retail and institutional investors have zero board-level influence. Related-party transactions (Tata Group IT contracts) are opaque. Free float is so thin that large FII selling can cause outsized price drops.</p>
+  </div>
+</section>
+
+
+<section class="section container content" id="timeline">
+  <div class="section-header">
+    <h2 class="h2">Milestones</h2>
+  </div>
+  <div class="timeline">
+    
+    <div class="timeline-item">
+      <div class="year">1968</div>
+      <div class="title">Incorporated as Tata Computer Centre</div>
+      <div class="desc">Set up as a division of Tata Sons to punch cards for Burroughs mainframes.</div>
+    </div>
+    
+    <div class="timeline-item">
+      <div class="year">2004</div>
+      <div class="title">IPO on NSE/BSE</div>
+      <div class="desc">Listed at ₹850 per share. TCS was already India&#39;s largest IT firm by revenue at listing.</div>
+    </div>
+    
+    <div class="timeline-item">
+      <div class="year">2017</div>
+      <div class="title">Crosses $100B market cap</div>
+      <div class="desc">First Indian IT company to achieve this milestone. Became India&#39;s most valuable company.</div>
+    </div>
+    
+    <div class="timeline-item">
+      <div class="year">2021</div>
+      <div class="title">₹1 Cr&#43; average compensation</div>
+      <div class="desc">First Indian company to pay ₹1 Cr&#43; average annual compensation to employees.</div>
+    </div>
+    
+    <div class="timeline-item">
+      <div class="year">2023</div>
+      <div class="title">Market cap crosses ₹12L Cr</div>
+      <div class="desc">Surpassed ₹12 lakh crore market capitalisation amid strong deal pipeline.</div>
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="section container content" style="text-align:center">
+  <h2 class="h2" style="margin-bottom:1rem">Who Connects to TCS?</h2>
+  <p class="small" style="margin-bottom:1.5rem">Explore the network of subsidiaries, competitors, clients, and Tata Group entities.</p>
+  <button class="graph-toggle" id="graph-toggle-btn">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+    Open connection graph
+  </button>
+</section>
+
+
+<div class="graph-overlay" id="graph-overlay" role="dialog" aria-label="Connection graph">
+  <button class="close-btn" id="graph-close" aria-label="Close graph">✕</button>
+  <h3>TCS · Entity Network</h3>
+  <div id="connection-graph"></div>
+  <p>Drag to explore · Hover for details</p>
+</div>
+
+
+<footer class="section container content source-footer">
+  <h4>Sources & Further Reading</h4>
+  <ul>
+    <li>→ <a href="#">TCS Annual Report FY25</a></li>
+    <li>→ <a href="#">BSE / NSE corporate filings</a></li>
+    <li>→ <a href="#">Screener.in — TCS financials</a></li>
+    <li>→ <a href="#">Trendlyne — peer comparison</a></li>
+    <li>→ <a href="#">SEBI EDIFAR disclosures</a></li>
+    <li>→ <a href="#">Capitaline — 10-year data</a></li>
+  </ul>
+</footer>
+
+
+<script>
+window.__COMPANY_DATA = {
+  ticker: "TCS.NS",
+  pulse:  68 ,
+  revenue: "[{\"label\":\"₹1,64,177 Cr\",\"value\":164177,\"year\":\"FY21\"},{\"label\":\"₹1,91,754 Cr\",\"value\":191754,\"year\":\"FY22\"},{\"label\":\"₹2,25,458 Cr\",\"value\":225458,\"year\":\"FY23\"},{\"label\":\"₹2,40,893 Cr\",\"value\":240893,\"year\":\"FY24\"},{\"label\":\"₹2,57,000 Cr\",\"value\":257000,\"year\":\"FY25\"}]",
+  profit: "[{\"value\":32430,\"year\":\"FY21\"},{\"value\":38449,\"year\":\"FY22\"},{\"value\":46245,\"year\":\"FY23\"},{\"value\":49342,\"year\":\"FY24\"},{\"value\":53000,\"year\":\"FY25\"}]",
+  debtEquity: "[{\"value\":0.08,\"year\":\"FY21\"},{\"value\":0.06,\"year\":\"FY22\"},{\"value\":0.04,\"year\":\"FY23\"},{\"value\":0.03,\"year\":\"FY24\"},{\"value\":0.02,\"year\":\"FY25\"}]",
+  roe: "[{\"value\":38.2,\"year\":\"FY21\"},{\"value\":40.1,\"year\":\"FY22\"},{\"value\":44.6,\"year\":\"FY23\"},{\"value\":47.2,\"year\":\"FY24\"},{\"value\":49.5,\"year\":\"FY25\"}]",
+  patMargin: "[{\"value\":19.8,\"year\":\"FY21\"},{\"value\":20.1,\"year\":\"FY22\"},{\"value\":20.5,\"year\":\"FY23\"},{\"value\":20.5,\"year\":\"FY24\"},{\"value\":20.6,\"year\":\"FY25\"}]",
+};
+</script>
+
+</body>
+</html>
