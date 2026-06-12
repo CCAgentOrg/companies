@@ -5,13 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tata Consultancy Services · Company Docs</title>
   <meta name="description" content="A deep, multi-perspective documentary on India&#39;s largest IT services company — financials, governance, market position, and the bull &amp; bear cases.">
+  <meta name="robots" content="index, follow">
+
+  
+  <meta property="og:title" content="Tata Consultancy Services · Company Docs">
+  <meta property="og:description" content="A deep, multi-perspective documentary on India&#39;s largest IT services company — financials, governance, market position, and the bull &amp; bear cases.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://ccagentorg.github.io/companies/tcs/">
+  <meta property="og:site_name" content="Company Docs">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tata Consultancy Services · Company Docs">
+  <meta name="twitter:description" content="A deep, multi-perspective documentary on India&#39;s largest IT services company — financials, governance, market position, and the bull &amp; bear cases.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="https://srikanthlogic.github.io/companies/css/main.min.c2e9a44e9c9168552dc12cf359082a2c4e6bf3666317a17824cc38e9b94814f6.css">
+  <link rel="stylesheet" href="https://ccagentorg.github.io/companies/css/main.min.d5c0955aa90bbdc08c6f595953b5ad620c10713f98384d0912049c793fef053c.css">
   <script src="https://d3js.org/d3.v7.min.js" defer></script>
-  <script src="https://srikanthlogic.github.io/companies/js/main.js" defer></script>
+  <script src="https://ccagentorg.github.io/companies/js/main.js" defer></script>
 </head>
 <body>
   
@@ -21,13 +35,28 @@
 
 
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Corporation",
+  "name": "Tata Consultancy Services",
+  "tickerSymbol": "TCS.NS",
+  "description": "\"A deep, multi-perspective documentary on India's largest IT services company — financials, governance, market position, and the bull \\u0026 bear cases.\"",
+  "sector": "Information Technology",
+  "foundingDate": "1968",
+  "numberOfEmployees":  616171 ,
+  "diversityStaffing": "https://www.tcs.com"
+}
+</script>
+
+
 <header class="pulse-bar" role="banner">
   <div class="container pulse-bar-inner">
     <div class="pulse-dot bull" aria-hidden="true"></div>
     <div class="pulse-info">
       <span class="ticker">TCS.NS</span>
       <span class="label">Cautiously Bullish</span>
-      <span class="score">68/100</span>
+      <span class="score score--bull">68/100</span>
     </div>
     <nav class="perspective-group" role="tablist" aria-label="Analysis perspective">
       <button class="chip active" data-perspective="bull" role="tab" aria-selected="true">🐂 Bull</button>
@@ -54,22 +83,22 @@
 
 <section class="section container content">
   <div class="data-grid" data-perspective-visible>
-    <div class="data-card fade-in visible delay-1">
+    <div class="data-card delay-1">
       <div class="label">Revenue (TTM)</div>
       <div class="value">₹2.57L Cr</div>
       <div class="delta up">▲ +6.7% YoY</div>
     </div>
-    <div class="data-card fade-in visible delay-2">
+    <div class="data-card delay-2">
       <div class="label">Net Profit Margin</div>
       <div class="value">20.6%</div>
       <div class="delta up">▲ +10bps YoY</div>
     </div>
-    <div class="data-card fade-in visible delay-3">
+    <div class="data-card delay-3">
       <div class="label">Debt / Equity</div>
       <div class="value">0.02</div>
       <div class="delta up">Near-zero debt</div>
     </div>
-    <div class="data-card fade-in visible delay-4">
+    <div class="data-card delay-4">
       <div class="label">Return on Equity</div>
       <div class="value">49.5%</div>
       <div class="delta up">▲ World-class</div>
@@ -210,7 +239,7 @@
 
 <section class="section container content" style="text-align:center">
   <h2 class="h2" style="margin-bottom:1rem">Who Connects to TCS?</h2>
-  <p class="small" style="margin-bottom:1.5rem">Explore the network of subsidiaries, competitors, clients, and Tata Group entities.</p>
+  <p class="small" style="margin-bottom:1.5rem">Explore the network of Tata Group entities, competitors, and exchanges.</p>
   <button class="graph-toggle" id="graph-toggle-btn">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
     Open connection graph
@@ -221,7 +250,9 @@
 <div class="graph-overlay" id="graph-overlay" role="dialog" aria-label="Connection graph">
   <button class="close-btn" id="graph-close" aria-label="Close graph">✕</button>
   <h3>TCS · Entity Network</h3>
-  <div id="connection-graph"></div>
+  <div class="graph-area" id="graph-area">
+    <div id="connection-graph"></div>
+  </div>
   <p>Drag to explore · Hover for details</p>
 </div>
 
@@ -243,13 +274,14 @@
 window.__COMPANY_DATA = {
   ticker: "TCS.NS",
   pulse:  68 ,
-  revenue: "[{\"label\":\"₹1,64,177 Cr\",\"value\":164177,\"year\":\"FY21\"},{\"label\":\"₹1,91,754 Cr\",\"value\":191754,\"year\":\"FY22\"},{\"label\":\"₹2,25,458 Cr\",\"value\":225458,\"year\":\"FY23\"},{\"label\":\"₹2,40,893 Cr\",\"value\":240893,\"year\":\"FY24\"},{\"label\":\"₹2,57,000 Cr\",\"value\":257000,\"year\":\"FY25\"}]",
-  profit: "[{\"value\":32430,\"year\":\"FY21\"},{\"value\":38449,\"year\":\"FY22\"},{\"value\":46245,\"year\":\"FY23\"},{\"value\":49342,\"year\":\"FY24\"},{\"value\":53000,\"year\":\"FY25\"}]",
-  debtEquity: "[{\"value\":0.08,\"year\":\"FY21\"},{\"value\":0.06,\"year\":\"FY22\"},{\"value\":0.04,\"year\":\"FY23\"},{\"value\":0.03,\"year\":\"FY24\"},{\"value\":0.02,\"year\":\"FY25\"}]",
-  roe: "[{\"value\":38.2,\"year\":\"FY21\"},{\"value\":40.1,\"year\":\"FY22\"},{\"value\":44.6,\"year\":\"FY23\"},{\"value\":47.2,\"year\":\"FY24\"},{\"value\":49.5,\"year\":\"FY25\"}]",
-  patMargin: "[{\"value\":19.8,\"year\":\"FY21\"},{\"value\":20.1,\"year\":\"FY22\"},{\"value\":20.5,\"year\":\"FY23\"},{\"value\":20.5,\"year\":\"FY24\"},{\"value\":20.6,\"year\":\"FY25\"}]",
+  revenue: [{"label":"₹1,64,177 Cr","value":164177,"year":"FY21"},{"label":"₹1,91,754 Cr","value":191754,"year":"FY22"},{"label":"₹2,25,458 Cr","value":225458,"year":"FY23"},{"label":"₹2,40,893 Cr","value":240893,"year":"FY24"},{"label":"₹2,57,000 Cr","value":257000,"year":"FY25"}],
+  profit: [{"value":32430,"year":"FY21"},{"value":38449,"year":"FY22"},{"value":46245,"year":"FY23"},{"value":49342,"year":"FY24"},{"value":53000,"year":"FY25"}],
+  debtEquity: [{"value":0.08,"year":"FY21"},{"value":0.06,"year":"FY22"},{"value":0.04,"year":"FY23"},{"value":0.03,"year":"FY24"},{"value":0.02,"year":"FY25"}],
+  roe: [{"value":38.2,"year":"FY21"},{"value":40.1,"year":"FY22"},{"value":44.6,"year":"FY23"},{"value":47.2,"year":"FY24"},{"value":49.5,"year":"FY25"}],
+  patMargin: [{"value":19.8,"year":"FY21"},{"value":20.1,"year":"FY22"},{"value":20.5,"year":"FY23"},{"value":20.5,"year":"FY24"},{"value":20.6,"year":"FY25"}],
 };
 </script>
+<noscript><div class="nojs-banner">JavaScript is needed for charts and perspective switching. View the raw data in <a href="https://github.com/CCAgentOrg/companies">the repository</a>.</div></noscript>
 
 </body>
 </html>

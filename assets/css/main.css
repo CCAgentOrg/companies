@@ -16,6 +16,7 @@
   --bear-bg:rgba(192,68,59,0.08);
   --neutral:#6b95c0;
   --accent:#d4a34d;
+  --green:#5cb85c;
   --font-sans:'Inter',system-ui,-apple-system,sans-serif;
   --font-serif:'Source Serif 4',Georgia,serif;
   --font-mono:'JetBrains Mono','SF Mono',monospace;
@@ -51,7 +52,9 @@ body{min-height:100vh}
 .pulse-info{font-family:var(--font-sans);font-size:0.85rem}
 .pulse-info .ticker{font-weight:600;letter-spacing:0.04em}
 .pulse-info .label{color:var(--text2);margin-left:0.5rem}
-.pulse-info .score{font-weight:600;color:var(--bull);margin-left:0.5rem}
+.score--bull{color:var(--bull);font-weight:600;margin-left:0.5rem}
+.score--bear{color:var(--bear);font-weight:600;margin-left:0.5rem}
+.score--neutral{color:var(--neutral);font-weight:600;margin-left:0.5rem}
 
 /* ── Perspective Chips ── */
 .perspective-group{display:flex;gap:0.4rem;flex-wrap:wrap;margin-left:auto}
@@ -110,7 +113,7 @@ body{min-height:100vh}
 .timeline{position:relative;padding-left:2rem;margin:2rem 0}
 .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--border)}
 .timeline-item{position:relative;padding:0 0 2.5rem 1.5rem;opacity:0;transform:translateX(-10px);transition:all 0.5s ease}
-.timeline-item.is-visible{opacity:1;transform:translateX(0)}
+.timeline-item.is-visible,.timeline-item.visible{opacity:1;transform:translateX(0)}
 .timeline-item::before{content:'';position:absolute;left:-2rem;top:0.5rem;width:9px;height:9px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
 .timeline-item .year{font-family:var(--font-sans);font-size:0.82rem;font-weight:600;color:var(--accent)}
 .timeline-item .title{font-weight:600;margin:0.2rem 0 0.3rem;font-family:var(--font-sans)}
@@ -121,8 +124,8 @@ body{min-height:100vh}
 .graph-toggle:hover{background:var(--surface2);border-color:var(--text3)}
 .graph-overlay{position:fixed;inset:0;z-index:200;background:rgba(10,10,8,0.88);backdrop-filter:blur(8px);display:none;justify-content:center;align-items:center;flex-direction:column}
 .graph-overlay.open{display:flex}
-.graph-overlay svg{max-width:800px;width:90%;height:70vh}
-.graph-overlay .close-btn{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer;padding:0.5rem}
+.graph-overlay .graph-area{width:90%;height:65vh;max-width:800px;position:relative}
+.graph-overlay .close-btn{position:absolute;top:1.5rem;right:1.5rem;z-index:210;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer;padding:0.5rem}
 .graph-overlay h3{font-family:var(--font-sans);font-size:1.2rem;margin-bottom:1rem;color:var(--text)}
 .graph-overlay p{font-size:0.85rem;color:var(--text2);font-family:var(--font-sans);margin-top:0.5rem}
 .node circle{fill:var(--accent);stroke:var(--bg);stroke-width:2;cursor:pointer;transition:r 0.2s}
@@ -161,3 +164,10 @@ body{min-height:100vh}
 .delay-2{transition-delay:0.2s}
 .delay-3{transition-delay:0.3s}
 .delay-4{transition-delay:0.4s}
+
+/* ── D3 Tooltip ── */
+.d3-tooltip{position:absolute;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:0.5rem 0.8rem;font-family:var(--font-sans);font-size:0.82rem;color:var(--text);pointer-events:none;z-index:50;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
+
+/* ── No-JS Fallback ── */
+.nojs-banner{position:fixed;bottom:0;left:0;right:0;background:var(--bg3);border-top:1px solid var(--border);padding:1rem;text-align:center;font-family:var(--font-sans);font-size:0.85rem;color:var(--text2);z-index:999}
+.nojs-banner a{color:var(--accent);text-decoration:underline}

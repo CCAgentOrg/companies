@@ -4,7 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ if .Title }}{{ .Title }} · {{ end }}{{ .Site.Title }}</title>
-  <meta name="description" content="{{ .Params.description | default "Company documentary dossiers" }}">
+  <meta name="description" content="{{ .Params.description | default "Documentary dossiers on every listed entity in India" | truncate 160 }}">
+  <meta name="robots" content="index, follow">
+
+  {{/* Open Graph */}}
+  <meta property="og:title" content="{{ if .Title }}{{ .Title }} · {{ end }}{{ .Site.Title }}">
+  <meta property="og:description" content="{{ .Params.description | default "Structured, multi-perspective documentary dossiers on listed Indian companies." | truncate 200 }}">
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+
+  {{/* Twitter Card */}}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ if .Title }}{{ .Title }} · {{ end }}{{ .Site.Title }}">
+  <meta name="twitter:description" content="{{ .Params.description | default "Documentary dossiers" | truncate 200 }}">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
