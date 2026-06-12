@@ -1,7 +1,26 @@
 {{ define "main" }}
 
+{{/* ── Data lookup: try Site.Data first, fall back to frontmatter ── */}}
+{{ $__d := dict }}
+{{ with index $.Site.Data.companies .Slug }}
+  {{ $__d = . }}
+{{ end }}
+{{ $p := .Params }}
+{{ $__data := dict }}
+{{ range $k, $v := $__d }}{{ $__data = merge $__data (dict $k $v) }}{{ end }}
+{{ $__data = merge $__data (dict "pulse" ($__d.pulse | default $p.pulse | default 50)) }}
+{{ $__data = merge $__data (dict "pulse_label" ($__d.pulse_label | default $p.pulse_label | default "Neutral")) }}
+{{ $__data = merge $__data (dict "description" ($__d.description | default $p.description)) }}
+{{ $__data = merge $__data (dict "sector" ($__d.sector | default $p.sector)) }}
+{{ $__data = merge $__data (dict "founded" ($__d.founded | default $p.founded)) }}
+{{ $__data = merge $__data (dict "employees" ($__d.employees | default $p.employees)) }}
+{{ $__data = merge $__data (dict "market_cap" ($__d.market_cap | default $p.market_cap)) }}
+{{ $__data = merge $__data (dict "revenue" ($__d.financials_yearly | default $__data.revenue)) }}
+{{ $__data = merge $__data (dict "profit" ($__d.profit | default $__data.profit)) }}
+{{ $__data = merge $__data (dict "events" ($__d.milestones | default $__data.events)) }}
+
 {{ $pulseClass := "neutral" }}
-{{ $pulse := .Params.pulse | default 50 }}
+{{ $pulse := $__data.pulse }}
 {{ if ge $pulse 66 }}{{ $pulseClass = "bull" }}{{ else if le $pulse 33 }}{{ $pulseClass = "bear" }}{{ end }}
 
 {{/* ── Structured Data (JSON-LD) ── */}}
@@ -10,11 +29,11 @@
   "@context": "https://schema.org",
   "@type": "Corporation",
   "name": "{{ .Title }}",
-  "tickerSymbol": "{{ .Params.ticker }}",
+  "tickerSymbol": "{{ $__data.ticker }}",
   "description": {{ .Description | jsonify }},
-  "sector": "{{ .Params.sector }}",
-  "foundingDate": "{{ .Params.founded }}",
-  "numberOfEmployees": {{ .Params.employees }},
+  "sector": "{{ $__data.sector }}",
+  "foundingDate": "{{ $__data.founded }}",
+  "numberOfEmployees": {{ $__data.employees }},
   "diversityStaffing": "https://www.tcs.com"
 }
 </script>
@@ -24,8 +43,8 @@
   <div class="container pulse-bar-inner">
     <div class="pulse-dot {{ $pulseClass }}" aria-hidden="true"></div>
     <div class="pulse-info">
-      <span class="ticker">{{ .Params.ticker }}</span>
-      <span class="label">{{ .Params.pulse_label }}</span>
+      <span class="ticker">{{ $__data.ticker }}</span>
+      <span class="label">{{ $__data.pulse_label }}</span>
       <span class="score score--{{ $pulseClass }}">{{ $pulse }}/100</span>
     </div>
     <nav class="perspective-group" role="tablist" aria-label="Analysis perspective">
@@ -41,11 +60,11 @@
 <section class="hero container content">
   <h1 class="h1">{{ .Title }}</h1>
   <div class="meta">
-    <span>🏷️ {{ .Params.ticker }}</span>
-    <span>🏭 {{ .Params.sector }}</span>
-    <span>📅 Founded {{ .Params.founded }}</span>
-    <span>👥 {{ .Params.employees | lang.FormatNumber 0 }} employees</span>
-    <span>💰 {{ .Params.market_cap }}</span>
+    <span>🏷️ {{ $__data.ticker }}</span>
+    <span>🏭 {{ $__data.sector }}</span>
+    <span>📅 Founded {{ $__data.founded }}</span>
+    <span>👥 {{ $__data.employees | lang.FormatNumber 0 }} employees</span>
+    <span>💰 {{ $__data.market_cap }}</span>
     <span class="price-badge">{{ .Params.price }} <span class="{{ if strings.HasPrefix .Params.price_change "+" }}up{{ else }}down{{ end }}">{{ .Params.price_change }}</span></span>
   </div>
   {{ if .Params.indices }}
@@ -81,7 +100,7 @@
     </div>
     <div class="data-card fade-in visible delay-1">
       <div class="label">ROE</div>
-      <div class="value">{{ .Params.roe }}%</div>
+      <div class="value">{{ $__data.roe }}%</div>
       <div class="delta up">▲ 3-yr avg 51.9%</div>
     </div>
     <div class="data-card fade-in visible delay-2">
@@ -96,7 +115,7 @@
     </div>
     <div class="data-card fade-in visible delay-4">
       <div class="label">Profit Margin</div>
-      <div class="value">{{ .Params.profit_margin }}%</div>
+      <div class="value">{{ $__data.profit_margin }}%</div>
       <div class="delta up">▲ Best in class</div>
     </div>
   </div>
@@ -241,7 +260,7 @@
       </thead>
       <tbody>
         {{ $tcsPe := .Params.pe }}
-        {{ range .Params.peers }}
+        {{ range $__data.peers }}
         <tr{{ if eq .name "Tata Consultancy Services" }} class="highlight-row"{{ end }}>
           <td><strong>{{ .name }}</strong><span class="ticker-muted"> {{ .ticker }}</span></td>
           <td>{{ .market_cap }}</td>
@@ -312,7 +331,7 @@
     <h2 class="h2">Milestones</h2>
   </div>
   <div class="timeline">
-    {{ range .Params.events }}
+    {{ range $__data.events }}
     <div class="timeline-item">
       <div class="year">{{ .year }}</div>
       <div class="title">{{ .title }}</div>
@@ -358,15 +377,15 @@
 {{/* ── Data export for JS ── */}}
 <script>
 window.__COMPANY_DATA = {
-  ticker: {{ .Params.ticker }},
+  ticker: {{ $__data.ticker }},
   pulse: {{ $pulse }},
-  revenue: {{ .Params.revenue | jsonify | safeJS }},
-  profit: {{ .Params.profit | jsonify | safeJS }},
-  debtEquity: {{ .Params.debt_equity | jsonify | safeJS }},
-  roe: {{ .Params.roe | jsonify | safeJS }},
-  patMargin: {{ .Params.pat_ratio | jsonify | safeJS }},
-  shareholding: {{ .Params.shareholding | jsonify | safeJS }},
-  segments: {{ .Params.segments | jsonify | safeJS }},
+  revenue: {{ $__data.revenue | jsonify | safeJS }},
+  profit: {{ $__data.profit | jsonify | safeJS }},
+  debtEquity: {{ $__data.debt_equity | jsonify | safeJS }},
+  roe: {{ $__data.roe | jsonify | safeJS }},
+  patMargin: {{ $__data.pat_ratio | jsonify | safeJS }},
+  shareholding: {{ $__data.shareholding | jsonify | safeJS }},
+  segments: {{ $__data.segments | jsonify | safeJS }},
 };
 
 </script>

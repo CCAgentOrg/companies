@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * 0'  # Weekly Sunday 4 AM UTC
 
 permissions:
   contents: read
@@ -20,6 +22,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run data pipeline
+        run: python3 scripts/pipeline.py
+        env:
+          TURSO_DB_URL: ${{ secrets.TURSO_DB_URL || '' }}
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN || '' }}
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:

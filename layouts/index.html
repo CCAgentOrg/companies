@@ -5,32 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Company Docs · Documentary Dossiers</title>
   <meta name="description" content="Structured, multi-perspective documentary dossiers on every listed entity in India.">
+  <meta name="robots" content="index, follow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{--bg:#12110f;--bg2:#1b1916;--text:#e8e2d8;--text2:#a8a096;--border:#3a3630;--accent:#d4a34d;--font-sans:'Inter',system-ui,-apple-system,sans-serif;--font-serif:'Source Serif 4',Georgia,serif}
+    :root{--bg:#12110f;--bg2:#1b1916;--text:#e8e2d8;--text2:#a8a096;--border:#3a3630;--accent:#d4a34d;--bull:#5cb85c;--bear:#c0443b;--font-sans:'Inter',system-ui,-apple-system,sans-serif;--font-serif:'Source Serif 4',Georgia,serif}
     html{background:var(--bg);color:var(--text);font-family:var(--font-serif);font-size:18px;line-height:1.7;-webkit-font-smoothing:antialiased}
-    body{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:2rem;text-align:center}
-    h1{font-family:var(--font-sans);font-size:clamp(2rem,6vw,4rem);font-weight:700;letter-spacing:-0.02em;line-height:1.1}
-    p{color:var(--text2);max-width:600px;margin:1rem auto 2rem;font-size:1.1rem}
-    .list{display:flex;flex-direction:column;gap:0.8rem;width:100%;max-width:400px;margin-top:1rem}
-    .list a{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--text);text-decoration:none;font-family:var(--font-sans);transition:all 0.2s}
+    body{min-height:100vh;padding:3rem 1.5rem;max-width:800px;margin:0 auto}
+    h1{font-family:var(--font-sans);font-size:clamp(2rem,6vw,3.5rem);font-weight:700;letter-spacing:-0.02em;line-height:1.1}
+    .sub{color:var(--text2);max-width:600px;margin:1rem 0 2.5rem;font-size:1.08rem;line-height:1.6}
+    .stats{display:flex;gap:2rem;font-family:var(--font-sans);font-size:0.85rem;color:var(--text2);margin-bottom:2.5rem;flex-wrap:wrap}
+    .stats span{display:flex;align-items:center;gap:0.3rem}
+    .list{display:flex;flex-direction:column;gap:0.7rem;width:100%}
+    .list a{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.2rem;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);text-decoration:none;font-family:var(--font-sans);transition:all 0.2s}
     .list a:hover{border-color:var(--accent);background:rgba(212,163,77,0.06)}
-    .list a .ticker{color:var(--text2);font-size:0.85rem;font-weight:500}
-    .badge{font-size:0.72rem;padding:0.2rem 0.6rem;border-radius:999px;background:rgba(212,163,77,0.12);color:var(--accent);font-weight:500}
+    .list a .name{font-weight:500}
+    .list a .ticker{color:var(--text2);font-size:0.82rem;font-weight:500}
+    .list a .meta{display:flex;align-items:center;gap:0.8rem}
+    .pulse-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:0.3rem}
+    .pulse-dot.bull{background:var(--bull)}
+    .pulse-dot.bear{background:var(--bear)}
+    .pulse-dot.neutral{background:var(--text2)}
+    .sector-tag{font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;background:var(--bg2);border:1px solid var(--border);color:var(--text2)}
+    .footer{margin-top:3rem;font-size:0.85rem;color:var(--text2)}
+    .footer a{color:var(--accent);text-decoration:none}
+    .footer a:hover{text-decoration:underline}
   </style>
 </head>
 <body>
   <h1>Company Docs</h1>
-  <p>Structured, multi-perspective documentary dossiers on every listed entity in India. Data, narrative, and opinion — in one scroll.</p>
-  <div class="list">
-    <a href="tcs/">
-      <span>Tata Consultancy Services</span>
-      <span style="display:flex;align-items:center;gap:0.6rem"><span class="badge">🐂 Bullish</span><span class="ticker">TCS.NS</span></span>
-    </a>
+  <p class="sub">Structured, multi-perspective documentary dossiers on every listed entity in India. Data, narrative, and opinion — in one scroll.</p>
+  {{ $companies := $.Site.Data.companies.index }}
+  {{ if not $companies }}
+    {{ $companies = $.Site.Data.companies }}
+  {{ end }}
+  <div class="stats">
+    <span>📄 {{ len $.Site.Data.companies.index | default 0 }} companies</span>
+    <span>🏭 {{ len (uniq (where $.Site.Data.companies.index "sector" "!=" nil)) | default 0 }} sectors</span>
+    <span id="last-updated">📅 {{ now | time.Format "Jan 2, 2006" }}</span>
   </div>
-  <p style="margin-top:3rem;font-size:0.85rem;color:var(--text2)">More companies being added · <a href="#" style="color:var(--accent)">Source on GitHub</a></p>
+  <div class="list">
+    {{ range $.Site.Data.companies.index }}
+    <a href="{{ .slug }}/">
+      <span class="name">{{ .name }}</span>
+      <span class="meta">
+        <span class="sector-tag">{{ .sector }}</span>
+        {{ if .pulse }}
+        <span>
+          <span class="pulse-dot {{ if ge .pulse 66 }}bull{{ else if le .pulse 33 }}bear{{ else }}neutral{{ end }}"></span>
+          {{ .pulse }}/100
+        </span>
+        {{ end }}
+        <span class="ticker">{{ .ticker }}</span>
+      </span>
+    </a>
+    {{ else }}
+    <p style="color:var(--text2);text-align:center;padding:2rem">No companies yet. Run the pipeline first.</p>
+    {{ end }}
+  </div>
+  <p class="footer">
+    <a href="https://github.com/CCAgentOrg/companies">GitHub</a> · 
+    <a href="https://ccagentorg.github.io/companies/tcs/">Latest: TCS</a> · 
+    Built on Zo Computer
+  </p>
 </body>
 </html>
