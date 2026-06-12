@@ -27,7 +27,9 @@ jobs:
         with:
           python-version: '3.12'
       - name: Run data pipeline
-        run: python3 scripts/pipeline.py
+        run: |
+          pip install pyyaml -q
+          python3 scripts/pipeline.py
         env:
           TURSO_DB_URL: ${{ secrets.TURSO_DB_URL || '' }}
           TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN || '' }}
