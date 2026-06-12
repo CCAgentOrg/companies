@@ -363,6 +363,107 @@
       window.addEventListener('resize', debounce(drawOwn, 200));
     }
 
+    /* ── 7. SEGMENT DONUT ── */
+    const segmentContainer = document.getElementById('segment-chart');
+    if (segmentContainer && isArr(cd.segments) && cd.segments.length) {
+      const segData = cd.segments.map(d => ({ label: d.segment, val: d.percentage, color: d.color || '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6,'0') }));
+      // Assign nice colors
+      const palette = ['#d4a34d','#6b95c0','#68a88a','#c0443b','#a08b6f','#8a7a6a','#b88b4a','#5c8a7a','#9a7a5a','#7a6a5a','#6a7a8a','#8a6a7a'];
+      segData.forEach((d,i) => { d.color = palette[i % palette.length]; });
+      function drawSeg() {
+        const w = segmentContainer.clientWidth;
+        const h = 320;
+        segmentContainer.innerHTML = '';
+        const svg = d3.select(segmentContainer).append('svg').attr('width', w).attr('height', h);
+        const radius = Math.min(w, h) / 2.8;
+        const g = svg.append('g').attr('transform', `translate(${w/4}, ${h/2})`);
+
+        const pie = d3.pie().value(d => d.val).sort(null);
+        const arc = d3.arc().innerRadius(radius*0.45).outerRadius(radius);
+        g.selectAll('.arc').data(pie(segData)).enter()
+          .append('path').attr('class','arc')
+          .attr('d', arc).attr('fill', d => d.data.color)
+          .attr('stroke', 'var(--bg,#12110f)').attr('stroke-width', 2)
+          .attr('opacity', 0).transition().duration(600).delay((d,i) => i*80)
+          .attr('opacity', 1);
+
+        // Legend to the right
+        const legX = w * 0.55;
+        const legend = svg.append('g').attr('transform', `translate(${legX}, ${h/2 - segData.length*12})`);
+        segData.forEach((d, i) => {
+          const row = legend.append('g').attr('transform', `translate(0, ${i * 24})`);
+          row.append('rect').attr('width', 12).attr('height', 12).attr('rx', 2)
+            .attr('fill', d.color).attr('opacity', 0.9);
+          row.append('text').attr('x', 18).attr('y', 10)
+            .attr('fill', 'var(--text2,#a8a096)').style('font-size','13px')
+            .text(`${d.label}: ${d.val}%`);
+        });
+      }
+      drawSeg();
+      window.addEventListener('resize', debounce(drawSeg, 200));
+    }
+
+    /* ── 8. SHAREHOLDING TREND CHART ── */
+    const shContainer = document.getElementById('shareholding-chart');
+    if (shContainer && isArr(cd.shareholding) && cd.shareholding.length) {
+      const shData = cd.shareholding.map(d => ({ quarter: d.quarter, promoters: +d.promoters, fii: +d.fii, dii: +d.dii, public: +d.public }));
+      function drawSH() {
+        const w = shContainer.clientWidth;
+        const h = 350;
+        shContainer.innerHTML = '';
+        const svg = d3.select(shContainer).append('svg').attr('width', w).attr('height', h);
+        const m = { top: 25, right: 30, bottom: 40, left: 50 };
+        const iw = w - m.left - m.right;
+        const ih = h - m.top - m.bottom;
+        const g = svg.append('g').attr('transform', `translate(${m.left},${m.top})`);
+
+        const x = d3.scalePoint().domain(shData.map(d => d.quarter)).range([0, iw]);
+        const y = d3.scaleLinear().domain([0, 85]).range([ih, 0]);
+
+        const fields = [
+          { key: 'promoters', label: 'Promoters', color: '#d4a34d' },
+          { key: 'fii', label: 'FII', color: '#6b95c0' },
+          { key: 'dii', label: 'DII', color: '#68a88a' },
+          { key: 'public', label: 'Public', color: '#a08b6f' },
+        ];
+
+        fields.forEach(f => {
+          const line = d3.line()
+            .x(d => x(d.quarter)).y(d => y(d[f.key]))
+            .curve(d3.curveMonotoneX);
+          g.append('path').datum(shData)
+            .attr('fill','none').attr('stroke', f.color).attr('stroke-width', 2)
+            .attr('d', line);
+          g.selectAll('.dot-' + f.key).data(shData).enter()
+            .append('circle')
+            .attr('cx', d => x(d.quarter)).attr('cy', d => y(d[f.key]))
+            .attr('r', 3).attr('fill', f.color);
+        });
+
+        // Legend
+        const legend = g.append('g').attr('transform', `translate(0, -20)`);
+        fields.forEach((f, i) => {
+          const item = legend.append('g').attr('transform', `translate(${i * 120}, 0)`);
+          item.append('circle').attr('r', 5).attr('fill', f.color);
+          item.append('text').attr('x', 10).attr('y', 4)
+            .attr('fill', 'var(--text2,#a8a096)').style('font-size','12px')
+            .style('font-family','Inter,sans-serif').text(f.label);
+        });
+
+        g.append('g').attr('transform', `translate(0,${ih})`)
+          .call(d3.axisBottom(x).tickSize(0).tickPadding(6).tickValues(x.domain().filter((d,i) => i % 2 === 0)))
+          .style('color', 'var(--text3,#6b655b)').style('font-size','11px');
+        g.append('g').call(d3.axisLeft(y).ticks(5).tickFormat(d => d + '%').tickSize(0).tickPadding(6))
+          .style('color', 'var(--text3,#6b655b)').style('font-size','12px');
+        g.selectAll('.grid-line').data(y.ticks(5)).enter()
+          .append('line').attr('class','grid-line')
+          .attr('x1', 0).attr('x2', iw).attr('y1', d => y(d)).attr('y2', d => y(d))
+          .attr('stroke', 'var(--border)').attr('stroke-dasharray','3,3').attr('opacity', 0.4);
+      }
+      drawSH();
+      window.addEventListener('resize', debounce(drawSH, 200));
+    }
+
     /* ── 7. TIMELINE FADE-IN ── */
     const timelineItems = document.querySelectorAll('.timeline-item');
     if (timelineItems.length) {

@@ -152,7 +152,54 @@ body{min-height:100vh}
 .source-footer a{color:var(--accent);text-decoration:none}
 .source-footer a:hover{text-decoration:underline}
 
-/* ── Responsive ── */
+/* ── Hero Price ── */
+.price-hero{display:flex;align-items:baseline;gap:1rem;margin:1.5rem 0 0;font-family:var(--font-sans)}
+.price-hero .price{font-size:2rem;font-weight:700;color:var(--text)}
+.price-hero .change{font-size:1rem;font-weight:500}
+.price-hero .change.up{color:var(--green)}
+.price-hero .change.down{color:var(--bear)}
+.price-hero .mkt-cap{font-size:0.82rem;color:var(--text3);margin-left:auto}
+
+/* ── Valuation Grid ── */
+.valuation-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.6rem;margin:1.5rem 0}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:0.8rem 1rem;text-align:center}
+.stat-card .stat-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--text3);font-family:var(--font-sans)}
+.stat-card .stat-value{font-size:1.1rem;font-weight:600;color:var(--text);margin-top:0.2rem;font-family:var(--font-sans)}
+
+/* ── Index Chips ── */
+.index-chips{display:flex;flex-wrap:wrap;gap:0.4rem;margin:1rem 0}
+.index-chip{padding:0.2rem 0.7rem;border-radius:999px;font-size:0.72rem;font-family:var(--font-sans);border:1px solid var(--border);background:var(--surface);color:var(--text2);text-decoration:none;transition:border-color 0.2s}
+.index-chip:hover{border-color:var(--accent);color:var(--text)}
+
+/* ── Section description ── */
+.section-desc{font-size:0.85rem;color:var(--text3);margin-bottom:1rem}
+
+/* ── Table Wrap ── */
+.table-wrap{overflow-x:auto;margin:1.5rem 0;border-radius:8px;border:1px solid var(--border)}
+.table-wrap .data-table{border:none}
+.table-wrap .data-table th:first-child,.table-wrap .data-table td:first-child{padding-left:1rem}
+.table-wrap .data-table th:last-child,.table-wrap .data-table td:last-child{padding-right:1rem}
+
+/* ── Peer Table ── */
+.peer-table{width:100%;border-collapse:collapse;font-family:var(--font-sans);font-size:0.82rem}
+.peer-table th,.peer-table td{padding:0.5rem 0.8rem;text-align:right;border-bottom:1px solid var(--border)}
+.peer-table th{font-weight:500;color:var(--text2);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;border-bottom:2px solid var(--border)}
+.peer-table td:first-child,.peer-table th:first-child{text-align:left}
+.peer-table tr:hover td{background:var(--bg2)}
+.peer-table td.peer-name{font-weight:600;color:var(--text)}
+
+/* ── Segment Donut ── */
+.chart-row{display:flex;gap:2rem;align-items:center;flex-wrap:wrap}
+.chart-main{flex:0 0 280px;height:260px}
+.chart-legend{flex:1;min-width:180px}
+.legend-item{display:flex;align-items:center;gap:0.5rem;padding:0.3rem 0;font-family:var(--font-sans);font-size:0.82rem}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.legend-label{color:var(--text2)}
+.legend-pct{font-weight:600;color:var(--text);margin-left:auto}
+
+/* ── Two-col layout ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:640px){.two-col{grid-template-columns:1fr}}
 @media(max-width:640px){
   .hero{padding:2rem 0 1.5rem}
   .section{margin:2rem 0}

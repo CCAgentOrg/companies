@@ -46,32 +46,58 @@
     <span>📅 Founded {{ .Params.founded }}</span>
     <span>👥 {{ .Params.employees | lang.FormatNumber 0 }} employees</span>
     <span>💰 {{ .Params.market_cap }}</span>
+    <span class="price-badge">{{ .Params.price }} <span class="{{ if strings.HasPrefix .Params.price_change "+" }}up{{ else }}down{{ end }}">{{ .Params.price_change }}</span></span>
   </div>
+  {{ if .Params.indices }}
+  <div class="index-badges">
+    {{ range .Params.indices }}<span class="index-chip">{{ . }}</span>{{ end }}
+  </div>
+  {{ end }}
   <p>{{ .Description }}</p>
 </section>
 
 {{/* ── Key Stats ── */}}
 <section class="section container content">
-  <div class="data-grid" data-perspective-visible>
-    <div class="data-card delay-1">
+  <div class="data-grid">
+    <div class="data-card fade-in visible delay-1">
       <div class="label">Revenue (TTM)</div>
       <div class="value">₹2.57L Cr</div>
       <div class="delta up">▲ +6.7% YoY</div>
     </div>
-    <div class="data-card delay-2">
-      <div class="label">Net Profit Margin</div>
-      <div class="value">20.6%</div>
-      <div class="delta up">▲ +10bps YoY</div>
+    <div class="data-card fade-in visible delay-2">
+      <div class="label">P/E Ratio</div>
+      <div class="value">{{ .Params.pe }}</div>
+      <div class="delta up">▲ Industry avg ~22x</div>
     </div>
-    <div class="data-card delay-3">
-      <div class="label">Debt / Equity</div>
-      <div class="value">0.02</div>
-      <div class="delta up">Near-zero debt</div>
+    <div class="data-card fade-in visible delay-3">
+      <div class="label">P/B Ratio</div>
+      <div class="value">{{ .Params.pb }}</div>
+      <div class="delta up">▼ 3-yr avg ~8.5x</div>
     </div>
-    <div class="data-card delay-4">
-      <div class="label">Return on Equity</div>
-      <div class="value">49.5%</div>
-      <div class="delta up">▲ World-class</div>
+    <div class="data-card fade-in visible delay-4">
+      <div class="label">Dividend Yield</div>
+      <div class="value">{{ .Params.div_yield }}%</div>
+      <div class="delta up">▲ Payout ~77%</div>
+    </div>
+    <div class="data-card fade-in visible delay-1">
+      <div class="label">ROE</div>
+      <div class="value">{{ .Params.roe }}%</div>
+      <div class="delta up">▲ 3-yr avg 51.9%</div>
+    </div>
+    <div class="data-card fade-in visible delay-2">
+      <div class="label">ROCE</div>
+      <div class="value">{{ .Params.roce }}%</div>
+      <div class="delta up">▲ Industry-leading</div>
+    </div>
+    <div class="data-card fade-in visible delay-3">
+      <div class="label">EPS (TTM)</div>
+      <div class="value">₹{{ .Params.eps }}</div>
+      <div class="delta up">▲ +8% YoY</div>
+    </div>
+    <div class="data-card fade-in visible delay-4">
+      <div class="label">Profit Margin</div>
+      <div class="value">{{ .Params.profit_margin }}%</div>
+      <div class="delta up">▲ Best in class</div>
     </div>
   </div>
 </section>
@@ -114,6 +140,120 @@
       <div class="chart-fixed" id="revenue-chart"></div>
     </div>
   </div>
+</section>
+
+{{/* ── Segment Breakup ── */}}
+<section class="section container content" id="segments">
+  <div class="section-header">
+    <h2 class="h2">Revenue Mix <span style="color:var(--text2)">— By Industry Vertical</span></h2>
+  </div>
+  <div id="segment-chart" style="height:320px;margin:2rem 0"></div>
+  <p class="small" style="text-align:center">Source: TCS Q3 FY26 Fact Sheet · BFSI remains dominant at 31.9%</p>
+</section>
+
+{{/* ── Balance Sheet Highlights ── */}}
+<section class="section container content" id="balance-sheet">
+  <div class="section-header">
+    <h2 class="h2">Balance Sheet <span style="color:var(--text2)">— Strength & Efficiency</span></h2>
+  </div>
+  <div class="data-grid">
+    <div class="data-card fade-in visible delay-1">
+      <div class="label">Cash & Equivalents</div>
+      <div class="value">₹41,080 Cr</div>
+      <div class="delta up">▲ 12.4% of market cap</div>
+    </div>
+    <div class="data-card fade-in visible delay-2">
+      <div class="label">Total Debt</div>
+      <div class="value">₹4,268 Cr</div>
+      <div class="delta up">▼ Virtually debt-free</div>
+    </div>
+    <div class="data-card fade-in visible delay-3">
+      <div class="label">Shareholders Equity</div>
+      <div class="value">₹1,07,025 Cr</div>
+      <div class="delta up">▲ Strong base</div>
+    </div>
+    <div class="data-card fade-in visible delay-4">
+      <div class="label">Debt / Equity</div>
+      <div class="value">0.04</div>
+      <div class="delta up">▲ Near-zero</div>
+    </div>
+  </div>
+</section>
+
+{{/* ── Quarterly Results Table ── */}}
+<section class="section container content" id="quarterly">
+  <div class="section-header">
+    <h2 class="h2">Quarterly Results <span style="color:var(--text2)">— Last 13 Quarters</span></h2>
+    <p class="small" style="margin-top:0.5rem">Sales · Operating Profit · PAT · EPS — Consolidated (₹ Cr)</p>
+  </div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Quarter</th>
+          <th>Sales</th>
+          <th>Op. Profit</th>
+          <th>OPM %</th>
+          <th>PAT</th>
+          <th>EPS (₹)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ range .Params.quarterly }}
+        <tr>
+          <td>{{ .quarter }}</td>
+          <td>{{ .sales }}</td>
+          <td>{{ .op_profit }}</td>
+          <td>{{ .opm }}%</td>
+          <td class="{{ if ge .pat .pat }}highlight{{ end }}">{{ .pat }}</td>
+          <td>{{ .eps }}</td>
+        </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{{/* ── Shareholding Trend ── */}}
+<section class="section container content" id="shareholding-trend">
+  <div class="section-header">
+    <h2 class="h2">Shareholding Trend <span style="color:var(--text2)">— FII/DII Shift</span></h2>
+    <p class="small" style="margin-top:0.5rem">FIIs have reduced from 12.7% to 9.7% over 8 quarters. DIIs increased from 10.6% to 13.3%.</p>
+  </div>
+  <div id="shareholding-chart" style="height:350px;margin:2rem 0"></div>
+</section>
+
+{{/* ── Peer Comparison ── */}}
+<section class="section container content" id="peers">
+  <div class="section-header">
+    <h2 class="h2">Peer Comparison <span style="color:var(--text2)">— IT Services Majors</span></h2>
+  </div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Mkt Cap</th>
+          <th>P/E</th>
+          <th>ROE %</th>
+          <th>vs TCS P/E</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ $tcsPe := .Params.pe }}
+        {{ range .Params.peers }}
+        <tr{{ if eq .name "Tata Consultancy Services" }} class="highlight-row"{{ end }}>
+          <td><strong>{{ .name }}</strong><span class="ticker-muted"> {{ .ticker }}</span></td>
+          <td>{{ .market_cap }}</td>
+          <td>{{ .pe }}</td>
+          <td>{{ .roe }}</td>
+          <td class="{{ if lt .pe $tcsPe }}up{{ else }}down{{ end }}">{{ if lt .pe $tcsPe }}▲ Discount{{ else }}▼ Premium{{ end }}</td>
+        </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+  <p class="small" style="margin-top:0.5rem;color:var(--text3)">TCS trades at a discount to Infosys on P/E despite higher ROE — potential value opportunity.</p>
 </section>
 
 {{/* ── Profitability ── */}}
@@ -225,7 +365,10 @@ window.__COMPANY_DATA = {
   debtEquity: {{ .Params.debt_equity | jsonify | safeJS }},
   roe: {{ .Params.roe | jsonify | safeJS }},
   patMargin: {{ .Params.pat_ratio | jsonify | safeJS }},
+  shareholding: {{ .Params.shareholding | jsonify | safeJS }},
+  segments: {{ .Params.segments | jsonify | safeJS }},
 };
+
 </script>
 <noscript><div class="nojs-banner">JavaScript is needed for charts and perspective switching. View the raw data in <a href="https://github.com/CCAgentOrg/companies">the repository</a>.</div></noscript>
 {{ end }}
