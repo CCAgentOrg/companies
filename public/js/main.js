@@ -40,6 +40,8 @@
     });
   }
 
+  showPerspective('bull');
+
   /* ── 2. SCROLLYTELLING ── */
   let activeStep = -1;
   const stepCards = document.querySelectorAll('.step-card');
