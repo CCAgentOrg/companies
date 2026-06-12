@@ -15,17 +15,28 @@
   /* ── 1. PERSPECTIVE SWITCHING ── */
   const body = document.body;
   const chips = document.querySelectorAll('.perspective-group .chip');
+  const panels = document.querySelectorAll('[data-perspective-content]');
+
+  function showPerspective(p) {
+    body.dataset.perspective = p;
+    chips.forEach(c => {
+      const match = c.dataset.perspective === p;
+      c.classList.toggle('active', match);
+      c.setAttribute('aria-selected', match ? 'true' : 'false');
+    });
+    // Show/hide perspective panels — hidden by default via display:none
+    panels.forEach(panel => {
+      const shouldShow = panel.dataset.perspectiveContent === p;
+      panel.classList.toggle('visible', shouldShow);
+    });
+  }
+
   if (chips.length) {
     const group = chips[0].closest('.perspective-group');
     group.addEventListener('click', e => {
       const chip = e.target.closest('[data-perspective]');
       if (!chip) return;
-      const p = chip.dataset.perspective;
-      body.dataset.perspective = p;
-      chips.forEach(c => {
-        c.classList.toggle('active', c === chip);
-        c.setAttribute('aria-selected', c === chip);
-      });
+      showPerspective(chip.dataset.perspective);
     });
   }
 

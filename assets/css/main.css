@@ -38,8 +38,8 @@ body{min-height:100vh}
 /* ── Layout ── */
 .container{max-width:var(--max-w);margin:0 auto;padding:0 24px}
 .content{max-width:var(--content-w);margin:0 auto}
-.section{margin:6rem 0}
-.section-header{margin-bottom:2.5rem}
+.section{margin:3.5rem 0}
+.section-header{margin-bottom:1.5rem}
 
 /* ── Pulse Header ── */
 .pulse-bar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
@@ -79,21 +79,21 @@ body{min-height:100vh}
 .annotation .aside .source a:hover{text-decoration:underline}
 
 /* ── Scrolly Section ── */
-.scrolly{position:relative;display:flex;gap:3rem;align-items:flex-start;padding:4rem 0}
-.scrolly-step{flex:0 0 35%;max-width:380px;position:sticky;top:120px;z-index:2}
-@media(max-width:800px){.scrolly{flex-direction:column;gap:0}.scrolly-step{flex:auto;max-width:100%;position:relative;top:auto}}
-.scrolly-step .step-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:70vh;opacity:0.3;transform:translateY(20px);transition:all 0.5s ease}
+.scrolly{position:relative;display:flex;gap:2rem;align-items:flex-start;padding:2rem 0}
+.scrolly-step{flex:0 0 35%;max-width:380px;position:sticky;top:100px;z-index:2}
+@media(max-width:800px){.scrolly{flex-direction:column;gap:0;padding:0}.scrolly-step{flex:auto;max-width:100%;position:relative;top:auto}}
+.scrolly-step .step-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.2rem;margin-bottom:40vh;opacity:0.3;transform:translateY(20px);transition:all 0.5s ease}
 .scrolly-step .step-card.is-active{opacity:1;transform:translateY(0);background:var(--surface);border-color:var(--accent)}
 .scrolly-step .step-card:last-child{margin-bottom:0}
-.step-card .title{font-family:var(--font-sans);font-weight:600;font-size:1.1rem;margin-bottom:0.3rem}
-.step-card .sub{font-size:0.85rem;color:var(--text2);margin-bottom:0.8rem}
-.step-card .note{font-size:0.82rem;color:var(--text3);line-height:1.5}
-.scrolly-chart{flex:1;min-height:200vh}
-.scrolly-chart .chart-fixed{position:sticky;top:100px;height:60vh;min-height:400px;width:100%}
+.step-card .title{font-family:var(--font-sans);font-weight:600;font-size:1rem;margin-bottom:0.3rem}
+.step-card .sub{font-size:0.82rem;color:var(--text2);margin-bottom:0.6rem}
+.step-card .note{font-size:0.8rem;color:var(--text3);line-height:1.5}
+.scrolly-chart{flex:1;min-height:120vh}
+.scrolly-chart .chart-fixed{position:sticky;top:100px;height:50vh;min-height:320px;width:100%}
 
 /* ── Perspective Filtered Content ── */
-.perspective-panel{padding:1.5rem;border-radius:8px;margin:1.5rem 0;opacity:0;max-height:0;overflow:hidden;transition:all 0.4s ease}
-.perspective-panel.visible{opacity:1;max-height:1000px}
+.perspective-panel{padding:1.5rem;border-radius:8px;margin:1.5rem 0;display:none;transition:all 0.3s ease}
+.perspective-panel.visible{display:block}
 .perspective-panel.bull{background:var(--bull-bg);border-left:3px solid var(--bull)}
 .perspective-panel.bear{background:var(--bear-bg);border-left:3px solid var(--bear)}
 .perspective-panel h4{font-family:var(--font-sans);font-weight:600;font-size:0.9rem;display:flex;align-items:center;gap:0.5rem;margin-bottom:0.4rem}
@@ -119,7 +119,10 @@ body{min-height:100vh}
 .timeline-item .title{font-weight:600;margin:0.2rem 0 0.3rem;font-family:var(--font-sans)}
 .timeline-item .desc{font-size:0.9rem;color:var(--text2);line-height:1.6}
 
-/* ── Connection Graph Overlay ── */
+/* ── Connection Graph ── */
+.graph-section{padding-bottom:3rem;text-align:center}
+.graph-section .h2{margin-bottom:1rem}
+.graph-section p{color:var(--text2);font-size:0.9rem;margin-bottom:1.5rem}
 .graph-toggle{display:inline-flex;align-items:center;gap:0.5rem;padding:0.7rem 1.4rem;border-radius:8px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:var(--font-sans);font-size:0.9rem;cursor:pointer;transition:all 0.2s}
 .graph-toggle:hover{background:var(--surface2);border-color:var(--text3)}
 .graph-overlay{position:fixed;inset:0;z-index:200;background:rgba(10,10,8,0.88);backdrop-filter:blur(8px);display:none;justify-content:center;align-items:center;flex-direction:column}
@@ -151,10 +154,13 @@ body{min-height:100vh}
 
 /* ── Responsive ── */
 @media(max-width:640px){
-  .hero{padding:3rem 0 2rem}
-  .section{margin:3rem 0}
+  .hero{padding:2rem 0 1.5rem}
+  .section{margin:2rem 0}
   .data-grid{grid-template-columns:repeat(2,1fr)}
-  .pulse-bar-inner{gap:0.8rem}
+  .pulse-bar-inner{gap:0.6rem}
+  .scrolly-step .step-card{margin-bottom:20vh;padding:1rem}
+  .scrolly-chart{min-height:60vh}
+  .scrolly-chart .chart-fixed{height:40vh;min-height:260px}
 }
 
 /* ── Utility ── */
