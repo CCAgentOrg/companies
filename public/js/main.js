@@ -21,13 +21,13 @@
     body.dataset.perspective = p;
     chips.forEach(c => {
       const match = c.dataset.perspective === p;
-      c.classList.toggle('active', match);
+      c.classList.toggle("active", match);
       c.setAttribute('aria-selected', match ? 'true' : 'false');
     });
     // Show/hide perspective panels — hidden by default via display:none
     panels.forEach(panel => {
       const shouldShow = panel.dataset.perspectiveContent === p;
-      panel.classList.toggle('visible', shouldShow);
+      panel.style.display = shouldShow ? 'block' : 'none';
     });
   }
 

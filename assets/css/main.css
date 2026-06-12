@@ -92,11 +92,10 @@ body{min-height:100vh}
 .scrolly-chart .chart-fixed{position:sticky;top:100px;height:50vh;min-height:320px;width:100%}
 
 /* ── Perspective Filtered Content ── */
-.perspective-panel{padding:1.5rem;border-radius:8px;margin:1.5rem 0;display:none;transition:all 0.3s ease}
-.perspective-panel.visible{display:block}
+.perspective-panel{padding:1.5rem;border-radius:8px;margin:1.5rem 0;display:none !important;transition:all 0.3s ease}
+.perspective-panel.visible{display:block !important}
 .perspective-panel.bull{background:var(--bull-bg);border-left:3px solid var(--bull)}
 .perspective-panel.bear{background:var(--bear-bg);border-left:3px solid var(--bear)}
-.perspective-panel:not(.visible){display:none}
 .perspective-panel h4{font-family:var(--font-sans);font-weight:600;font-size:0.9rem;display:flex;align-items:center;gap:0.5rem;margin-bottom:0.4rem}
 .perspective-panel p{font-size:0.95rem;line-height:1.7;color:var(--text2)}
 
