@@ -1,4 +1,4 @@
-baseURL = "https://srikanthlogic.github.io/companies/"
+baseURL = "https://ccagentorg.github.io/companies/"
 languageCode = "en"
 title = "Company Docs"
 disableKinds = ["rss", "sitemap", "taxonomy", "term"]
